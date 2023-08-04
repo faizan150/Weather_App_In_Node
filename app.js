@@ -10,8 +10,16 @@ const Request = require('postman-request')
 
 
 
-const mapBoxUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoibXVoYW1tYWRmYWl6YW4xMjUiLCJhIjoiY2xrdTBvMmUzMGpmczNxcG51ZzB6enE3MiJ9.WlYSyRi-BeMb-t2Q8GcDjw&limit=1'
+const mapBoxUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Gujranwala.json?access_token=pk.eyJ1IjoibXVoYW1tYWRmYWl6YW4xMjUiLCJhIjoiY2xrdTBvMmUzMGpmczNxcG51ZzB6enE3MiJ9.WlYSyRi-BeMb-t2Q8GcDjw&limit=1'
 
-Request({url:mapBoxUrl, json:true}, (error,response) => {
-    console.log('The Latitude for '+response.body.features[0].place_name+' is '+response.body.features[0].center[0]+' Longitude '+response.body.features[0].center[1]+' latitude');
+Request({ url: mapBoxUrl, json: true }, (error, response) => {
+    console.log(response.body.features.length);
+    if (error) {
+        console.log('Unable to Connect to the server')
+    }
+    else if (response.body.features.length === 0) {
+        console.log("This location doesnot Exist, Please retry with another query")
+    } else {
+        console.log('The Latitude for ' + response.body.features[0].place_name + ' is ' + response.body.features[0].center[0] + ' Longitude ' + response.body.features[0].center[1] + ' latitude')
+    }
 })
